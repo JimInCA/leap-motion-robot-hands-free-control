@@ -1,0 +1,10 @@
+*.vcxproj.filters
+*.vcxproj.user
+Release
+Debug
+.vs
+
+include
+lib
+connection.c
+
