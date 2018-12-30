@@ -8,3 +8,4 @@ include
 lib
 connection.c
 
+.DS_Store
