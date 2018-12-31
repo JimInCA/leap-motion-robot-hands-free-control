@@ -18,6 +18,6 @@ This Github repository contains the software that I've developed that provides t
 
 The heart of this project is the Leap Motion Controller.  You can purchase one either directly from Leap Motion or from various online vendors. 
 
-[Alt text](./images/leapmotion_controller.jpeg?raw=true "Leap Motion Controller")
+[alt text](./images/leapmotion_controller.jpeg)
 
 
