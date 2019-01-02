@@ -126,4 +126,15 @@ I know that this was quite a bit, but this should be it for software installatio
 
 ## **Software Configuration**
 
-What I need to do for this is to create a scrip file or batch file that will copy all of the required software to the development directory.  That will be next on my agenda.
+Now that we have everything that we need to build both the firmware for the Redbot and for building the host application, we now need to copy some files from the Leap Motion LeapC samples directory to our application directory.  I've put together a script file that will automatically copy the files from the LeapC-samples directory and place them where Visual Studio expects them to me.  Assuming that you cloned the two directories as defined above, this is all you should need to do:
+
+```
+cd ./redbot-touchless-control
+./auto_config.sh
+```
+
+Now you may say "Hey! We're using Windows! What gives with the script file?" and you would be right.  I worked for may years on Sun System machines and I feel very comfortable using the Unix Shell and the one that I prefer these days is the one that gets installed when you install GitExtensions on any machine running Windows.  So that's what I'm using these days.  But everything that you need to do is documented in this script, so if you don't have a Unix shell that you can use, you should be able to figure out what you need to do by simple reviewing auto_config.sh.  But someday, I my rewrite this script into a Windows compatible batch file...
+
+##  **Building and Installing the Redbot Firmware**
+
+TBD
