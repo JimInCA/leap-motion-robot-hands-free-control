@@ -4,7 +4,7 @@
 
 Ever since I first saw the Leap Motion Hand Tracking Controller, I've been fascinated by the potential of what can be done with this fantastic device.  Leap Motion has not only developed a device that can track your hands, but through their software, they can tell you every aspect about your hands.  With great accuracy, they can tell you if you every aspect of your left, right, or both hands; they can tell you the pitch, roll, and yaw of the palm of your hand; they can tell you how many fingers you have extended along with the length and direction of each segment of each finger on each hand (including your thumb).  With this device and its accompanying software, you can use your hands as input devices to control any aspect that is controllable through your computer.  The potential of this device is limitless!
 
-With this in mind, I wanted to start with a simple device that I can control with just hand gestures.  This, I'm doing to become familiar with the use of the Leap Motion Controller along with its software and to just have some fun.  What I came up with is the software that allows you to control a SparkFun Redbot robot with just your hands in free space.  
+With this in mind, I wanted to start with a simple device that I can control with just hand gestures.  This, I'm doing to become familiar with the use of the Leap Motion Controller along with its software and to just have some fun.  What I came up with is the software that allows you to control a SparkFun Redbot robot with just your hands in free space.
 
 The Redbot robot is a basic robot platform that has two wheels where each one is driven independently along with a third pivot point.  So in order to control this robot, I'll need throttle control for forward and reverse along with directional control for straight, left or right.  I decided to use a single hand to control the device with the pitch of the palm to control the throttle and roll for directional control.
 
@@ -22,7 +22,7 @@ The heart of this project is the Leap Motion Controller.  You can purchase one e
 
 ![alt text](./images/leapmotion_controller.jpeg?raw=true "Leap Motion Controller")
 
-The Leap Motion Controller comes with a USB3 cable.  Simply plug the cable into the controller and the other end into an open USB port of your computer.  
+The Leap Motion Controller comes with a USB3 cable.  Simply plug the cable into the controller and the other end into an open USB port of your computer.
 
 ### **SparkFun Redbot**
 
@@ -50,7 +50,7 @@ For this project, you'll need to attach one of the XBee modules to the Redbot's 
 
 ![alt text](./images/redbot_xbee.jpeg?raw=true "Assembled Modules")
 
-Please be aware that there is what I'll call a 'design oversight' with the Redbot Mainboard.  This has to do with the placement of switch S3.  During development, you'll need to change the setting on this switch in order to load the firmware onto this board and then change the setting back in order for the firmware to work properly.  That is why I'm shown the XBee Module with the wire antenna mounted on the Redbot.  With this XBee module, you'll have direct access to switch S3 without having to remove and then remount the module during firmware updates.  
+Please be aware that there is what I'll call a 'design oversight' with the Redbot Mainboard.  This has to do with the placement of switch S3.  During development, you'll need to change the setting on this switch in order to load the firmware onto this board and then change the setting back in order for the firmware to work properly.  That is why I'm shown the XBee Module with the wire antenna mounted on the Redbot.  With this XBee module, you'll have direct access to switch S3 without having to remove and then remount the module during firmware updates.
 
 As a further note, I'm showing two XBee modules that will be used on the host side when in reality, you only NEED one.  The second module will be used to monitor the serial data between the Redbot and the host computer. This makes debugging the software much easier and is well worth the cost of the additional module when you consider the time that will be saved.
 
@@ -66,7 +66,7 @@ There are multiple pieces of software that will need to be downloaded and instal
 * Leap Motion LeapC-Samples
 * This repository
 
-I guess that I should start with the basics and that is that all development was done using Windows 10.  
+I guess that I should start with the basics and that is that all development was done using Windows 10.
 
 ### **Arduino IDE**
 
@@ -82,7 +82,7 @@ Visual Studio Community 2017 is a full featured and free version of Microsoft's 
 
 [Visual Studio Community 2017](https://visualstudio.microsoft.com/vs/community/)
 
-Once you've downloaded the installer, you will need to execute it to install Visual Studio on your system.  
+Once you've downloaded the installer, you will need to execute it to install Visual Studio on your system.
 
 ### **git**
 
@@ -126,4 +126,4 @@ I know that this was quite a bit, but this should be it for software installatio
 
 ## **Software Configuration**
 
-What I need to do for this is to create a scrip file or batch file that will copy all of the required software to the development directory.  That will be next on my agenda.  
+What I need to do for this is to create a scrip file or batch file that will copy all of the required software to the development directory.  That will be next on my agenda.
