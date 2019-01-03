@@ -146,3 +146,9 @@ So now what we need to do is connect the Redbot to the host computer through the
 Please be aware that as I've pointed out earlier, you will need to change the position on switch S3 to upload the firmware and then switch it back to its original position once the firmware is completed uploading.  
 
 ##  **Building The Redbot Host Application**
+
+All that's left is to build the application that will run on your host computer that will send the wireless commands to the Redbot.  We'll start by bringing up Visual Studio Community IDE.  
+
+## **Testing Leap Motion Control of Redbot**
+
+Now it's time to start having some real fun!  
