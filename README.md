@@ -137,4 +137,12 @@ Now you may say "Hey! We're using Windows! What gives with the script file?" and
 
 ##  **Building and Installing the Redbot Firmware**
 
-TBD
+Now that all the work is done, we can finally start to have some fun!  To start with, we will first build the firmware that we will load onto the SparkFun Redbot.  This should be a simple task if the Arduino IDE is set up as defined above.  So open the Arduino IDE and from the File menu, select open.  Once the file browser opens, make your way to `<path>/redbot-touchless-control/redbot-firmware` and select `redbot-firmware.ino' to open the the file that has the firmware source code.
+
+Please feel free to scan through the code to become familiar with what it is doing.  The code is very simple in that the setup() function initializes the uart and timeout counter.  The main work is being done in the loop() function in that it waits for data to show up on the uart, reads the data, and then programs the left and right motor with the data that it receives.  If you look closely, you'll also notice that I have a timeout counter that is intended to prevent the robot from running wild if it stops receiving data by zeroing out the motor analog values.
+
+So now what we need to do is connect the Redbot to the host computer through the USB cable connected to the Redbot Mainboard.  You should be familiar with this if you went through the SparkFun Software Initialization Guide as I had suggested earlier.  So once the Redbot Mainboard is connected to the host, you will need to open the Tools menu in the Arduino IDE and then scroll down to Boards:... From the pop-up listing, scroll down and select SparkFun Redbot.  You will then need to repeat the process of opening up the Tools menu, but this time, you will need to select Ports and then select the proper port that your Redbot is connected to on your computer.  From this point, it should be a simple mater of selecting Verify/Compile from the Sketch menu and once it completes, then select Upload frm the Sketch menu to load the firmware onto the Redbot Mainboard. 
+
+Please be aware that as I've pointed out earlier, you will need to change the position on switch S3 to upload the firmware and then switch it back to its original position once the firmware is completed uploading.  
+
+##  **Building The Redbot Host Application**
