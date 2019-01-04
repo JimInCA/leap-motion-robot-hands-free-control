@@ -143,12 +143,21 @@ Please feel free to scan through the code to become familiar with what it is doi
 
 So now what we need to do is connect the Redbot to the host computer through the USB cable connected to the Redbot Mainboard.  You should be familiar with this if you went through the SparkFun Software Initialization Guide as I had suggested earlier.  So once the Redbot Mainboard is connected to the host, you will need to open the Tools menu in the Arduino IDE and then scroll down to Boards:... From the pop-up listing, scroll down and select SparkFun Redbot.  You will then need to repeat the process of opening up the Tools menu, but this time, you will need to select Ports and then select the proper port that your Redbot is connected to on your computer.  From this point, it should be a simple mater of selecting Verify/Compile from the Sketch menu and once it completes, then select Upload frm the Sketch menu to load the firmware onto the Redbot Mainboard. 
 
-Please be aware that as I've pointed out earlier, you will need to change the position on switch S3 to upload the firmware and then switch it back to its original position once the firmware is completed uploading.  
+Please be aware that as I've pointed out earlier, you will need to change the position on switch S3 to upload the firmware and then switch it back to its original position once the firmware is completed uploading.
 
 ##  **Building The Redbot Host Application**
 
-All that's left is to build the application that will run on your host computer that will send the wireless commands to the Redbot.  We'll start by bringing up Visual Studio Community IDE.  
+All that's left is to build the application that will run on your host computer that will send the wireless commands to the Redbot through monitoring your hand movements using the Leap Motion Controller.  We'll start by bringing up Visual Studio Community IDE.  You will need to first open up the solution file for the application.  So bring up the File menu, scroll down to Open, shift right to open the sub menu, and select Project/Solution... From the pop-up file browser, make your way over to the solution file, `<path>/Development/redbot-touchless-control/redbot-application/redbot-application.sln`, select this file, and then press the Open button.  If all when well, you should see something like this on your computer screen.
 
+![alt text](./images/VisualStudioCommunity.jpeg?raw=true "Microsoft Visual Studio Community")
+
+Now all you should need to do is select Build Solution from the Build menu and if all went well, your application will be compiled, linked, and stored in the `./x64/Release` directory.  
+
+A simple test is just to run the executable like this:
+```
+<path>\redbot-touchless-control\redbot-application>.\x64\Release\controller.exe
+Failed to connect to UART on port COM4.  Error code: 2
+```
 ## **Testing Leap Motion Control of Redbot**
 
-Now it's time to start having some real fun!  
+Now it's time to start having some real fun!
