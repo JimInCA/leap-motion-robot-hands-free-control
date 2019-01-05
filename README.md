@@ -98,7 +98,7 @@ Another piece of software that you will need to install is the Leap Motion Servi
 
 For this project, you will need to install the Leap Motion Services for the desktop.  Once installed, the service will run in the background and will only become active once the Leap Motion Controller is plugged into your host computer.  The application that we will be building that runs on the host computer will interact with this service to get the hand tracking data.  So it is quite important that it is installed and working properly.
 
-Once you have the Leap Motion Services installed, you can execute the Leap Motion Control Panel.  You can access this from the hidden icon pop-up within the Windows Taskbar as shown below or by searching for Leap Motion Control Panel.   
+Once you have the Leap Motion Services installed, you can execute the Leap Motion Control Panel.  You can access this from the hidden icon pop-up within the Windows Taskbar as shown below or by searching for Leap Motion Control Panel.
 
 ![alt text](./images/taskbar.jpeg?raw=true "Leap Motion Controller Taskbar Icon")
 
@@ -147,7 +147,7 @@ cd ./redbot-touchless-control
 
 Now you may say "Hey! We're using Windows! What gives with the script file?" and you would be right.  I worked for may years on Sun System machines and I feel very comfortable using the Unix Shell and the one that I prefer these days is the one that gets installed when you install GitExtensions on any machine running Windows.  So that's what I'm using these days.  But everything that you need to do is documented in this script, so if you don't have a Unix shell that you can use, you should be able to figure out what you need to do by simple reviewing auto_config.sh.  But someday, I my rewrite this script into a Windows compatible batch file...
 
-##  **Building and Installing the Redbot Firmware**
+###  **Building and Installing the Redbot Firmware**
 
 Now that all the work is done, we can finally start to have some fun!  To start with, we will first build the firmware that we will load onto the SparkFun Redbot.  This should be a simple task if the Arduino IDE is set up as defined above.  So open the Arduino IDE and from the File menu, select open.  Once the file browser opens, make your way to `<path>/redbot-touchless-control/redbot-firmware` and select `redbot-firmware.ino' to open the the file that has the firmware source code.
 
@@ -157,7 +157,7 @@ So now what we need to do is connect the Redbot to the host computer through the
 
 Please be aware that as I've pointed out earlier, you will need to change the position on switch S3 to upload the firmware and then switch it back to its original position once the firmware is completed uploading.
 
-##  **Building The Redbot Host Application**
+###  **Building The Redbot Host Application**
 
 All that's left is to build the application that will run on your host computer that will send the wireless commands to the Redbot through monitoring your hand movements using the Leap Motion Controller.  We'll start by bringing up Visual Studio Community IDE.  You will need to first open up the solution file for the application.  So bring up the File menu, scroll down to Open, shift right to open the sub menu, and select Project/Solution... From the pop-up file browser, make your way over to the solution file, `<path>/Development/redbot-touchless-control/redbot-application/redbot-application.sln`, select this file, and then press the Open button.  If all when well, you should see something like this on your computer screen.
 
