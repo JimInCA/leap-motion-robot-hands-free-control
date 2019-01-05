@@ -54,6 +54,8 @@ Please be aware that there is what I'll call a 'design oversight' with the Redbo
 
 As a further note, I'm showing two XBee modules that will be used on the host side when in reality, you only NEED one.  The second module will be used to monitor the serial data between the Redbot and the host computer. This makes debugging the software much easier and is well worth the cost of the additional module when you consider the time that will be saved.
 
+One thing that I need to inform you about is that Digi supplies a very good tool for configuring their devices called XCTU.  This setup tool provides you with the ability to upgrade your XBee devices to the latest firmware.  It also allows you to configure the devices to use a baud rate other than 9600bps which is their default value.  I've reconfigured mine to use 115200bps which is what the firmware on for the Redbot and application is expecting.  You will either need to reconfigure your xBee devices to use this baud rate or modify the supplied code to use 9600bps.  
+
 ## **Software Requirements**
 
 There are multiple pieces of software that will need to be downloaded and installed.  These include the following:
@@ -95,6 +97,16 @@ Another piece of software that you will need to install is the Leap Motion Servi
 [Leap Motion Service](https://www.leapmotion.com/setup/)
 
 For this project, you will need to install the Leap Motion Services for the desktop.  Once installed, the service will run in the background and will only become active once the Leap Motion Controller is plugged into your host computer.  The application that we will be building that runs on the host computer will interact with this service to get the hand tracking data.  So it is quite important that it is installed and working properly.
+
+Once you have the Leap Motion Services installed, you can execute the Leap Motion Control Panel.  You can access this from the hidden icon pop-up within the Windows Taskbar as shown below or by searching for Leap Motion Control Panel.   
+
+![alt text](./images/taskbar.jpeg?raw=true "Leap Motion Controller Taskbar Icon")
+
+One thing nice about the Leap Motion Icon is that it will turn green when it detects that the controller is connected to your computer.  Once the Leap Motion Control Panel is open, click on the Troubleshooting tab and you should see the following:
+
+![alt text](./images/leap_motion_control_panel.jpeg?raw=true "Leap Motion Control Panel")
+
+If everything is green, then we're good to go.  But if you truly want to see what this device is capable of, click on the Diagnostic Visualizer button and have some fun.
 
 ### **Leap Motion Software Development Kit (SDK)**
 
@@ -151,7 +163,7 @@ All that's left is to build the application that will run on your host computer 
 
 ![alt text](./images/VisualStudioCommunity.jpeg?raw=true "Microsoft Visual Studio Community")
 
-Now all you should need to do is select Build Solution from the Build menu and if all went well, your application will be compiled, linked, and stored in the `./x64/Release` directory.  
+Now all you should need to do is select Build Solution from the Build menu and if all went well, your application will be compiled, linked, and stored in the `./x64/Release` directory.
 
 A simple test is just to run the executable like this:
 ```
@@ -160,4 +172,60 @@ Failed to connect to UART on port COM4.  Error code: 2
 ```
 ## **Testing Leap Motion Control of Redbot**
 
-Now it's time to start having some real fun!
+Now it's time to start having some real fun by getting the software and hardware talking to each other.  The first thing that we want to verify is that our application can connect to both the Leap Motion Controller and to the XBee RF module.  So start by connection the USB cable to both the Leap Motion Controller and host computer.  Next, plug one of the XBee modules into the SparkFun USB adaptor and then connect the board to a second USB port on your host computer.  With everything plugged in, you will need to find out the serial port being used by the XBee module which can be done through Window's Device Manager.  Once you have all of this done, you can enter the following on a command line replacing the serial port that you found in Device Manager:
+```
+<path>\redbot-application>./x64/Release/controller.exe -p COM4 -b 115200
+Successfully connected to UART on port COM4 at baud rate 115200.
+Successfully connected to Leap Motion Controller.
+Using device LP95554261956.
+```
+
+If everything went well, then it's time to see if our application is sending out any data.  We will do this by connecting a second Digi XBee to your host to monitor the proper RF frequency for all data (or you can connect the second xBee module on a second computer if you so like).  You will then need to open a terminal program and connect this program to the second XBee module's serial port.  Both Tera Term and HyperTerminal work well for this, or you can use any serial terminal that you prefer.  If everything is working, then you should see the data that's being sent from our application by means of it's XBee RF module as shown in the image below:
+
+![alt text](./images/teraterm.jpeg?raw=true "Tera Term Serial Output")
+
+And remember, we want to verify that the Leap Motion Controller is the source of the data being sent!  So hold your left had about 12 to 18 inches above the controller and verify that the data follows the movement of your hand.  If you hold your hand flat, the pair of data (left motor and right motor) should be close to zero.  Then try tilting the palm of your hand forwards, backwards, to the left, and to the right (pitch and roll).  The data should change as you move your hand.
+
+Now for the ultimate test; it's time to power up the Redbot!  So on the Redbot Mainboard, set the motor switch, S?, to the on position.  Then turn on the Redbot Mainboard by sliding S? to the on position.  For the first test, I'd set the Redbot on its end so that the wheels are in the air and then place your left hand over the Leap Motion Controller and verify that the wheels turn the the correct direction following your the movement of your hand's palm!
+
+## **About the Magic**
+
+The real power in this application is what's hidden inside the libraries supplied to us by Leap Motion.  What they provide is a very simple set of APIs to get access to the hand tracking data.  We then use that data to control the movement of the robot.
+
+Here is the heart of the application code that gets the information from the controller that we use to determine the pitch and roll of the hand.  We then translate that information into forward or reverse throttle and left or right direction.  Once we've calculated the proper values for the left and right motor, we then send that data to the Redbot by way of the XBee RF module.
+
+```
+    while(1)
+    {
+        LEAP_TRACKING_EVENT *frame = GetFrame();
+        if(frame && (frame->tracking_frame_id > lastFrameID))
+        {
+            lastFrameID = frame->tracking_frame_id;
+            for(uint32_t h = 0; h < frame->nHands; h++)
+            {
+                LEAP_HAND* hand = &frame->pHands[h];
+                LEAP_VECTOR* vector = &hand->palm.normal;
+                if (hand->type == eLeapHandType_Left)
+                {
+                    // pitch will be used for throttle forward or reverse
+                    pitch = get_pitch(vector) + (float)90.0;
+                    pitch *= GAIN;
+                    // roll will be used for turning left or right 
+                    roll = get_roll(vector);
+                    roll *= GAIN * (float)0.5;
+                    // calculate values for left and right motors
+                    int32_t left_motor = (int32_t)(pitch - roll);
+                    int32_t right_motor = (int32_t)(-1.f * (pitch + roll));
+                    sprintf(str, "%8d %8d\r\n", left_motor, right_motor);
+                    WriteFile(uart, str, (DWORD)strlen(str), &num_written, NULL);
+                }
+            }
+        }
+    } //ctrl-c to exit
+```
+
+And this just scratches the surface of what you can do with the Leap Motion Controller.  The library not only provides data about the palm of your hand, it can also tell you about each finger such as length and direction of each segment and for both left and right hand.  The possibilities are endless.
+
+## **Conclusion**
+
+Well that's it for this introduction into using your hands to control your robot using the ultimate geek toy, the Leap Motion Controller!  I hope you have as much fun with this device as I did in developing this project.
