@@ -1,4 +1,4 @@
-# **Redbot Hands Free Controller**
+# **Redbot Hands Free Robot Control**
 
 
-![alt text](./images/redbot-hands-free-control.jpeg?raw=true "Redbot hands free control")
+![alt text](./images/redbot-hands-free-control.jpeg?raw=true "Redbot Hands Free Robot Control")
