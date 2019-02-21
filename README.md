@@ -9,4 +9,4 @@ This project is featured on the cover of the January/February 2019 issue of Serv
 
 ![alt text](./images/ServoMagazine.jpeg?raw=true "Servo Magazine, January/February Issue")
 
-The code developed for this project is still available on my github page.  The code for the two parts of this project, the firmware for the Redbot and the host application, are still available on this github page.
+The code for the two parts of this project, the firmware for the Redbot and the host application, are still available on this github page.
